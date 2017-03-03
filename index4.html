@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IFE JavaScript Task 04</title>
+    <style type="text/css" rel="stylesheet">
+        li {
+            text-decoration: none;
+            display: inline-block;
+            width: 3em;
+            height: 3em;
+            color: white;
+            line-height: 3em;
+            text-align: center;
+            background: red;
+            margin-right: 2em;
+            cursor:pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <input id="number" type="number">
+    <button id="left-in">左侧入</button>
+    <button id="right-in">右侧入</button>
+    <button id="left-out">左侧出</button>
+    <button id="right-out">右侧出</button>
+    <ul id="lie">
+
+    </ul>
+
+
+
+    <script type="text/javascript">
+        /*
+        * id 获取
+        * */
+        var input = document.getElementById("number");
+        var left_in = document.getElementById("left-in");
+        var right_in = document.getElementById("right-in");
+        var left_out = document.getElementById("left-out");
+        var right_out = document.getElementById("right-out");
+        var arr = document.getElementById("lie");
+        var liNodes=document.getElementsByTagName("li");
+        var numbers = new Array();
+　　　　　
+        /*
+        * 显示number
+        * */
+        function shownumber() {
+            arr.innerHTML="";
+            for(var index=0;index<numbers.length;index++){
+                arr.innerHTML += "<li onclick='del(this)'>"+numbers[index]+"</li>";
+            }
+        }
+        /*
+        * 点击删除
+        * */
+        function del(obj) {
+            var index = 0;
+            while(obj = obj.previousSibling) {
+                if(obj.nodeType == 1) index++;
+            }
+            numbers.splice(index, 1);
+            shownumber();
+        }
+        /*
+         * 左进
+         * */
+        left_in.onclick = function () {
+            numbers.unshift(input.value);
+            shownumber();
+        }
+        /*
+         * 右进
+         * */
+        right_in.onclick = function () {
+            numbers.push(input.value);
+            shownumber();
+        }
+　　　　　/*
+           左出
+           */
+        left_out.onclick = function () {
+            var elem = numbers.shift();
+            alert(elem);
+            shownumber();
+        }
+        /*
+         右出
+         * */
+        right_out.onclick = function () {
+            var elem = numbers.pop();
+            alert(elem);
+            shownumber();
+        }
+
+
+
+    </script>
+</body>
+
+</html>
