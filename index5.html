@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IFE JavaScript Task 05</title>
+    <style type="text/css" rel="stylesheet">
+        ul{
+            margin-top: 100px;
+            padding: 0;
+        }
+        li {
+            text-decoration: none;
+            display: inline-block;
+            padding-top: 1px;
+            vertical-align: bottom;
+            width: 1em;
+            margin: 2px;
+            color: white;
+            text-align: center;
+            background: red;
+            cursor:pointer;
+        }
+    </style>
+</head>
+
+<body>
+<input id="number" type="number">
+<button id="left-in">左侧入</button>
+<button id="right-in">右侧入</button>
+<button id="left-out">左侧出</button>
+<button id="right-out">右侧出</button>
+<button id="sort">排序</button>
+<ul id="lie">
+
+</ul>
+
+
+
+<script type="text/javascript">
+    /*
+     * id 获取
+     * */
+    var input = document.getElementById("number");
+    var left_in = document.getElementById("left-in");
+    var right_in = document.getElementById("right-in");
+    var left_out = document.getElementById("left-out");
+    var right_out = document.getElementById("right-out");
+    var number_sort = document.getElementById("sort");
+    var arr = document.getElementById("lie");
+    var liNodes=document.getElementsByTagName("li");
+    var numbers = new Array();
+
+    /*
+    判断输入的数字是否在10-100
+    */
+    function isNumber(){
+        if(input.value>=10&&input.value<=100){
+            return true;
+        }else{
+            alert("请输入10到100以内的数字");
+            return false;
+        }
+    }
+    /*
+    * 判断队列中是否超过６０个元素
+    * */
+    function isMax(){
+        if(numbers.length<60){
+            return true;
+        }else{
+            alert("队列元素达到上线６０");
+            return false;
+        }
+    }
+    /*
+     * 显示number
+     * */
+    function shownumber() {
+        arr.innerHTML="";
+        for(var index=0;index<numbers.length;index++){
+            arr.innerHTML += "<li onclick='del(this)'>"+numbers[index]+"</li>";
+            liNodes[index].style.height = numbers[index]*3+"px";
+            liNodes[index].style.lineHeight = numbers[index]*3+"px";
+        }
+    }
+    /*
+     * 点击删除
+     * */
+    function del(obj) {
+        var index = 0;
+        while(obj = obj.previousSibling) {
+            if(obj.nodeType == 1) index++;
+        }
+        numbers.splice(index, 1);
+        shownumber();
+    }
+    /*
+     * 左进
+     * */
+    left_in.onclick = function () {
+        if(isMax()) {
+            if (isNumber()) {
+                numbers.unshift(input.value);
+                shownumber();
+            }
+        }
+    }
+    /*
+     * 右进
+     * */
+    right_in.onclick = function () {
+        if(isMax()) {
+            if (isNumber()) {
+                numbers.push(input.value);
+                shownumber();
+            }
+        }
+    }
+    /*
+     左出
+     */
+    left_out.onclick = function () {
+        var elem = numbers.shift();
+        alert(elem);
+        shownumber();
+    }
+    /*
+     右出
+     * */
+    right_out.onclick = function () {
+        var elem = numbers.pop();
+        alert(elem);
+        shownumber();
+    }
+
+    /*
+    * 排序
+    * */
+    number_sort.onclick = function () {
+        for (var i = 0; i < numbers.length -1; i++){
+            for(var j = 0 ;j < numbers.length - i - 1; j++){
+                if(numbers[j] > numbers[j + 1]){
+                    var temp = numbers[j];
+                    numbers[j] = numbers[j + 1];
+                    numbers[j + 1] = temp;
+                }
+            }
+        }
+        shownumber();
+    }
+
+</script>
+</body>
+
+</html>
